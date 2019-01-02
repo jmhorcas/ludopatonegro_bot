@@ -76,7 +76,7 @@ def get_botes():
     #     return -1
 
 def format_botes(botes):
-    message = "Botes y sortes [LAE](https://www.loteriasyapuestas.es/es)\n"
+    message = ""
     for b in botes:
         message += u"\u2022 " + "*" + b[0] + "*: " + format(b[1][0], ',d').replace(',', '.') + "€\n" + str(b[1][1]) + "\n"
 
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     @bot.message_handler(commands=['start', 'help'])
     def send_welcome(message):
         logging.info(message)
-        bot.send_message(message.chat.id, "Hola! Soy *El Pato Negro*.\nPídeme información sobre los sorteos de LAE con el comando\n/botes", parse_mode="Markdown")
+        bot.send_message(message.chat.id, "Hola! Soy *El Pato Negro*.\nPídeme información sobre los sorteos de [LAE](https://www.loteriasyapuestas.es/es):\n/botes", parse_mode="Markdown")
 
     @bot.message_handler(commands=['botes'])
     def send_botes(message):
