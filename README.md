@@ -1,4 +1,4 @@
-# Telegram Bot: Ludopato negro
+# Telegram Bot: El pato negro
 Bot de Telegram para obtener información de los botes y próximos sorteos de Loterías y Apuestas del Estado.  
 El bot obtiene directamente la información del RSS oficial de Loterías y Apuestas del Estado.
 
