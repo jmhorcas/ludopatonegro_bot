@@ -15,6 +15,6 @@ El bot obtiene directamente la información del RSS oficial de Loterías y Apues
 ## Enlaces de interés
 [LAE] https://www.loteriasyapuestas.es/es
 
-## Donate to sustain our activities:
-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6LA36YG4NR6X2&source=url
+## Contribuir al desarrollo del bot:
+![paypal](https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=6LA36YG4NR6X2&source=url)
 
