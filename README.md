@@ -7,7 +7,7 @@ El bot obtiene directamente la información del RSS oficial de Loterías y Apues
 /help   - Muestra la ayuda del bot.  
 /botes  - Muestra la información sobre los botes y fechas de los próximos sorteos ordenados por el bote de mayor a menor.  
 
-![Respuesta del comando /botes](ludopatonegro_bot/ludopatonegro-botes.PNG?raw=true) 
+![Respuesta del comando /botes](./ludopatonegro_bot/ludopatonegro-botes.PNG?raw=true) 
 
 ## Futuras funcionalidades
 /resultados   - Muestra los resultados del último sorteo para cada sorteo.
