@@ -11,12 +11,12 @@ CHATS_DB = "Chats.dat"
 
 URL = "https://www.loteriasyapuestas.es/es/"
 
-PRIMITIVA = ("La Primitiva", "la-primitiva")
-EUROMILLONES = ("Euromillones", "euromillones")
-BONOLOTO = ("Bonoloto", "bonoloto")
-QUINIELA = ("La Quiniela", "la-quiniela")
-QUINIGOL = ("El Quinigol", "el-quinigol")
-LOTOTURF = ("Lototurf", "lototurf")
+PRIMITIVA = ("La Primitiva", "la-primitiva", 139838160)
+EUROMILLONES = ("Euromillones", "euromillones", 76275360)
+BONOLOTO = ("Bonoloto", "bonoloto", 13983816)
+QUINIELA = ("La Quiniela", "la-quiniela", 14348907)
+QUINIGOL = ("El Quinigol", "el-quinigol", 16777216)
+LOTOTURF = ("Lototurf", "lototurf", 8835372)
 
 LOTERIAS = [PRIMITIVA, EUROMILLONES, BONOLOTO, QUINIELA, QUINIGOL, LOTOTURF]
 
@@ -42,11 +42,16 @@ def save_chats(chats):
 def get_bote(sorteo):
     """ Get the latest bote given a rss. """
     try:
-        f = feedparser.parse(URL + sorteo + "/botes/.formatoRSS")
+        f = feedparser.parse(URL + sorteo[1] + "/botes/.formatoRSS")
         e = f.entries[0]
         bote = int(re.match(r'.+\ (.+)€', e.title).group(1).replace('.', ''))
         proximo_sorteo = re.match(r'.+próximo (.+) pone.+', e.summary).group(1)
-        return (bote, proximo_sorteo)
+        expectedValue = round(bote * 1/sorteo[2], 2)
+        if expectedValue > 1:
+            play = "Juega!"
+        else:
+            play = "No juegues!"
+        return (bote, proximo_sorteo, expectedValue, play)
     except Exception as error:
         logging.error("Error requesting botes to RSS.\n%s" % error)
         return None
@@ -55,7 +60,7 @@ def get_botes():
     """ Obtain the botes for all loterias. """
     botes = {}
     for l in LOTERIAS:
-        botes[l[0]]=get_bote(l[1])
+        botes[l[0]]=get_bote(l)
     return botes
 
 # def get_results():
@@ -78,8 +83,9 @@ def get_botes():
 def format_botes(botes):
     message = ""
     for b in botes:
-        message += u"\u2022 " + "*" + b[0] + "*: " + format(b[1][0], ',d').replace(',', '.') + "€\n" + str(b[1][1]) + "\n"
-
+        message += u"\u2022 " + "*" + b[0] + "*: " + format(b[1][0], ',d').replace(',', '.') + "€\n"
+        message += str(b[1][1]) + "\n"
+        message += "_E(X)=" + str(b[1][2]) + "_ " + u"\u2192 " + b[1][3] + "\n"
     return message
 
 if __name__ == '__main__':
