@@ -84,8 +84,8 @@ def format_botes(botes):
     message = ""
     for b in botes:
         message += u"\u2022 " + "*" + b[0] + "*: " + format(b[1][0], ',d').replace(',', '.') + "€\n"
-        message += str(b[1][1]) + "\n"
         message += "_E(X)=" + str(b[1][2]) + "_ " + u"\u2192 " + b[1][3] + "\n"
+        message += str(b[1][1]) + "\n"
     return message
 
 if __name__ == '__main__':
