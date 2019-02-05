@@ -11,12 +11,12 @@ CHATS_DB = "Chats.dat"
 
 URL = "https://www.loteriasyapuestas.es/es/"
 
-PRIMITIVA = ("La Primitiva", "la-primitiva", 139838160)
-EUROMILLONES = ("Euromillones", "euromillones", 76275360)
-BONOLOTO = ("Bonoloto", "bonoloto", 13983816)
-QUINIELA = ("La Quiniela", "la-quiniela", 14348907)
-QUINIGOL = ("El Quinigol", "el-quinigol", 16777216)
-LOTOTURF = ("Lototurf", "lototurf", 8835372)
+PRIMITIVA = ("La Primitiva", "la-primitiva", 139838160, 1)
+EUROMILLONES = ("Euromillones", "euromillones", 76275360, 2.5)
+BONOLOTO = ("Bonoloto", "bonoloto", 13983816, 0.5)
+QUINIELA = ("La Quiniela", "la-quiniela", 14348907, 0.75)
+QUINIGOL = ("El Quinigol", "el-quinigol", 16777216, 1)
+LOTOTURF = ("Lototurf", "lototurf", 8835372, 1)
 
 LOTERIAS = [PRIMITIVA, EUROMILLONES, BONOLOTO, QUINIELA, QUINIGOL, LOTOTURF]
 
@@ -39,6 +39,11 @@ def save_chats(chats):
     except Exception as error:
         logging.error("Error saving chats.\n%s" % error)
 
+def calc_expected_value(sorteo, bote):
+    prob = 1/sorteo[2]
+    expectedValue = (bote * prob) - (sorteo[3] * (1-prob))
+    return round(expectedValue, 2)
+
 def get_bote(sorteo):
     """ Get the latest bote given a rss. """
     try:
@@ -46,7 +51,8 @@ def get_bote(sorteo):
         e = f.entries[0]
         bote = int(re.match(r'.+\ (.+)€', e.title).group(1).replace('.', ''))
         proximo_sorteo = re.match(r'.+próximo (.+) pone.+', e.summary).group(1)
-        expectedValue = round(bote * 1/sorteo[2], 2)
+        #expectedValue = round((bote * 1/sorteo[2]) - (sorteo[3]*(1-(1/sorteo[2]))) , 2)
+        expectedValue = calc_expected_value(sorteo, bote)
         if expectedValue > 1:
             play = "Juega!"
         else:
